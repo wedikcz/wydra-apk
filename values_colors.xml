@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_dark">#FF1a1a2e</color>
+    <color name="background_medium">#FF16213e</color>
+    <color name="primary_red">#FFe94560</color>
+    <color name="primary_blue">#FF0f3460</color>
+    <color name="text_green">#FF00ff88</color>
+    <color name="text_white">#FFffffff</color>
+    <color name="text_gray">#FF666666</color>
+    <color name="terminal_black">#FF000000</color>
+    <color name="warning_yellow">#FFffff00</color>
+    <color name="error_red">#FFff0000</color>
+</resources>

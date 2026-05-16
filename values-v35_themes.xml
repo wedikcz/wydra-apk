@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.AppDebugToolkit.Android15" parent="Theme.AppDebugToolkit">
+        <!-- Android 15 specific attributes -->
+        <item name="android:foregroundServiceType">specialUse</item>
+        <item name="android:enableOnBackInvokedCallback">true</item>
+    </style>
+</resources>

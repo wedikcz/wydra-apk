@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AppDebugToolkit</string>
+    <string name="version">2.0.0</string>
+    <string name="description">Android 15 ARM64 Dynamic Instrumentation Framework</string>
+    <string name="channel_name">AppDebugToolkit Service</string>
+    <string name="channel_description">Background instrumentation and monitoring service</string>
+</resources>

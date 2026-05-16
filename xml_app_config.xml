@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App configuration -->
+    <string name="config_api_version">35</string>
+    <string name="config_target_arch">arm64-v8a</string>
+    <string name="config_agent_version">2.0.0</string>
+    <bool name="config_auto_bypass_on_start">true</bool>
+    <bool name="config_foreground_service">true</bool>
+    <bool name="config_boot_start">true</bool>
+    <integer name="config_scan_buffer_size">67108864</integer>
+</resources>

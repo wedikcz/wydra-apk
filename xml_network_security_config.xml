@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Allow all cleartext for debugging -->
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </base-config>
+    
+    <!-- Domain-specific config for Play Integrity bypass -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">google.com</domain>
+        <domain includeSubdomains="true">android.com</domain>
+        <domain includeSubdomains="true">play.google.com</domain>
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </domain-config>
+</network-security-config>
