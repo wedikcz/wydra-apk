@@ -1,40 +1,29 @@
-cmake_minimum_required(VERSION 3.22.1)
-project("appdebugtoolkit")
+cmake_minimum_required(VERSION 3.22)
+project(wydra_apk)
 
-# Enable C11
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Add the complete toolkit source
-add_library(
-    appdebugtoolkit
-    SHARED
-    app-debug-toolkit.c
+# Android NDK configuration
+set(ANDROID_ABI arm64-v8a)
+set(ANDROID_PLATFORM android-35)
+set(ANDROID_STL c++_shared)
+
+# Source files
+set(SOURCES
+    src/main/jni/native-lib.c
 )
 
-# Link required libraries
-target_link_libraries(
-    appdebugtoolkit
-    log
-    dl
+# Create native library
+add_library(wydra_native SHARED ${SOURCES})
+
+# Include directories
+target_include_directories(wydra_native PRIVATE
+    src/main/jni/include
+)
+
+# Link Android libraries
+target_link_libraries(wydra_native
     android
-)
-
-# ARM64 specific flags
-target_compile_options(
-    appdebugtoolkit
-    PRIVATE
-    -D_GNU_SOURCE
-    -Wall
-    -Wextra
-    -O2
-    -fvisibility=hidden
-)
-
-# Set ARM64 ABI
-set_target_properties(
-    appdebugtoolkit
-    PROPERTIES
-    ANDROID_ABI "arm64-v8a"
-    ANDROID_STL "c++_shared"
+    log
 )
