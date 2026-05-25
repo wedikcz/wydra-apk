@@ -50,9 +50,7 @@ public class SettingsActivity extends AppCompatActivity {
             PrefsManager.setForegroundService(switchForeground.isChecked());
             PrefsManager.setBootStart(switchBootStart.isChecked());
             PrefsManager.setHookPersistence(switchHookPersist.isChecked());
-            
-            // Log level
-            // Would need to save to PrefsManager
+            PrefsManager.setLogLevel((String) spinnerLogLevel.getSelectedItem());
             
             Toast.makeText(this, "Settings saved", Toast.LENGTH_SHORT).show();
             finish();

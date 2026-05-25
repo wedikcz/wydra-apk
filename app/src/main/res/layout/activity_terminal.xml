@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="#101820">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Root Terminal"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#E5EAF0" />
+
+        <Switch
+            android:id="@+id/rootSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SU"
+            android:textColor="#E5EAF0" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/outputScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp"
+        android:background="#0B1117"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/terminalOutput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#7CFC9C"
+            android:textSize="12sp"
+            android:fontFamily="monospace" />
+    </ScrollView>
+
+    <EditText
+        android:id="@+id/commandInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Type shell command"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#8A96A3"
+        android:background="#1E2A36"
+        android:padding="10dp"
+        android:fontFamily="monospace"
+        android:inputType="text" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/runButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="RUN"
+            android:backgroundTint="#D94F4F"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/clearButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="6dp"
+            android:text="CLEAR"
+            android:backgroundTint="#334155"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/exportButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="6dp"
+            android:text="EXPORT"
+            android:backgroundTint="#166534"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+</LinearLayout>

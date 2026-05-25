@@ -49,16 +49,32 @@ public class PrefsManager {
     public static boolean isForegroundService() {
         return prefs.getBoolean(PREF_FOREGROUND_SERVICE, true);
     }
-    
+
+    public static void setForegroundService(boolean value) {
+        editor.putBoolean(PREF_FOREGROUND_SERVICE, value).apply();
+    }
+
     public static boolean isBootStart() {
         return prefs.getBoolean(PREF_BOOT_START, true);
     }
-    
+
+    public static void setBootStart(boolean value) {
+        editor.putBoolean(PREF_BOOT_START, value).apply();
+    }
+
     public static String getLogLevel() {
         return prefs.getString(PREF_LOG_LEVEL, "INFO");
     }
-    
+
+    public static void setLogLevel(String value) {
+        editor.putString(PREF_LOG_LEVEL, value).apply();
+    }
+
     public static boolean isHookPersistence() {
         return prefs.getBoolean(PREF_HOOK_PERSISTENCE, false);
+    }
+
+    public static void setHookPersistence(boolean value) {
+        editor.putBoolean(PREF_HOOK_PERSISTENCE, value).apply();
     }
 }

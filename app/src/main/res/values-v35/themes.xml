@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.AppDebugToolkit.Android15" parent="Theme.AppDebugToolkit">
+        <!-- Reserved for Android 15 specific overrides. -->
+    </style>
+</resources>

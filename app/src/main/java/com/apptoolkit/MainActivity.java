@@ -1,16 +1,17 @@
 package com.apptoolkit;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
+import android.view.View;
 import android.widget.*;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import java.io.*;
+import com.apptoolkit.util.RootShell;
 
 public class MainActivity extends AppCompatActivity {
     private TextView textViewLog;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         appendLog("Device: " + Build.MODEL + " (" + Build.DEVICE + ")");
         appendLog("Android: " + Build.VERSION.RELEASE + " (API " + Build.VERSION.SDK_INT + ")");
         appendLog("Arch: " + System.getProperty("os.arch"));
+        appendLog("Root shell: " + (RootShell.hasSu() ? "available" : "not available"));
 
         // Auto-init on launch
         try {
@@ -93,13 +95,13 @@ public class MainActivity extends AppCompatActivity {
 
                 case "info":
                 case "i":
-                    String info = NativeBridge.nativeGetProcessInfo();
+                    String info = NativeBridge.getProcessInfo();
                     appendLog(info);
                     break;
 
                 case "modules":
                 case "m":
-                    String modules = NativeBridge.nativeListModules();
+                    String modules = NativeBridge.listModules();
                     appendLog(modules);
                     break;
 
@@ -117,19 +119,19 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case "hooks":
-                    int hc = NativeBridge.nativeGetHookCount();
+                    int hc = NativeBridge.getHookCount();
                     appendLog("Active hooks: " + hc);
                     break;
 
                 case "unhook":
-                    NativeBridge.nativeRemoveAllHooks();
+                    NativeBridge.removeAllHooks();
                     appendLog("[OK] All hooks removed");
                     break;
 
                 case "bypass":
                 case "b":
                     boolean antiDebug = NativeBridge.initAntiDebug();
-                    int hooks = NativeBridge.nativeAutoBypassLicense();
+                    int hooks = NativeBridge.autoBypassLicense();
                     appendLog("Anti-debug: " + (antiDebug ? "ACTIVE" : "FAILED"));
                     appendLog("License hooks: " + hooks);
                     break;
@@ -140,18 +142,18 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case "suspend":
-                    int suspended = NativeBridge.nativeSuspendAllThreads();
+                    int suspended = NativeBridge.suspendAllThreads();
                     appendLog("Suspended " + suspended + " threads");
                     break;
 
                 case "resume":
-                    int resumed = NativeBridge.nativeResumeAllThreads();
+                    int resumed = NativeBridge.resumeAllThreads();
                     appendLog("Resumed " + resumed + " threads");
                     break;
 
                 case "watchdogs":
                 case "w":
-                    int wd = NativeBridge.nativeSuspendWatchdogs();
+                    int wd = NativeBridge.suspendWatchdogs();
                     appendLog("Watchdogs suspended: " + wd);
                     break;
 
@@ -175,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                         long end = Long.parseLong(parts[2].startsWith("0x") ? 
                             parts[2].substring(2) : parts[2], 16);
                         String desc = parts.length >= 4 ? parts[3] : "";
-                        int ret = NativeBridge.nativeNopRange(start, end, desc);
+                        int ret = NativeBridge.nopRange(start, end, desc);
                         appendLog(ret >= 0 ? "[OK] NOP range" : "[FAIL] NOP failed");
                     } else {
                         appendLog("Usage: nop <start_hex> <end_hex> [desc]");
@@ -184,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
                 case "integrity":
                 case "pi":
-                    int pi = NativeBridge.nativeSpoofPlayIntegrity();
+                    int pi = NativeBridge.spoofPlayIntegrity();
                     appendLog("Play Integrity spoof: " + (pi > 0 ? "ACTIVE" : "FAILED"));
                     break;
 
@@ -217,11 +219,36 @@ public class MainActivity extends AppCompatActivity {
                             parts[2].substring(2) : parts[2], 16) : 0;
                         long end = parts.length >= 4 ? Long.parseLong(parts[3].startsWith("0x") ? 
                             parts[3].substring(2) : parts[3], 16) : 0x7fffffffffffL;
-                        int found = NativeBridge.nativeFindString(search, start, end);
+                        int found = NativeBridge.findString(search, start, end);
                         appendLog("Found '" + search + "': " + found + " occurrences");
                     } else {
                         appendLog("Usage: find <string> [start_hex] [end_hex]");
                     }
+                    break;
+
+                case "sh":
+                    if (cmd.length() <= 3) {
+                        appendLog("Usage: sh <command>");
+                    } else {
+                        runShellCommand(false, cmd.substring(3).trim());
+                    }
+                    break;
+
+                case "su":
+                    if (cmd.length() <= 3) {
+                        appendLog("Usage: su <command>");
+                    } else {
+                        runShellCommand(true, cmd.substring(3).trim());
+                    }
+                    break;
+
+                case "whoami":
+                    runShellCommand(true, "id");
+                    break;
+
+                case "terminal":
+                case "term":
+                    startActivity(new Intent(this, TerminalActivity.class));
                     break;
 
                 case "clear":
@@ -253,8 +280,26 @@ public class MainActivity extends AppCompatActivity {
         appendLog("integrity/pi        - Spoof Play Integrity");
         appendLog("read <addr> [size]  - Read memory");
         appendLog("find <str>          - Find string in memory");
+        appendLog("sh <cmd>            - Run shell command");
+        appendLog("su <cmd>            - Run root command via su");
+        appendLog("whoami              - Show shell identity");
+        appendLog("terminal/term       - Open root terminal screen");
         appendLog("clear               - Clear log");
         appendLog("help/h              - Show this help");
+    }
+
+    private void runShellCommand(boolean root, String command) {
+        appendLog((root ? "[SU] " : "[SH] ") + command);
+        new Thread(() -> {
+            try {
+                int code = RootShell.runCommand(root, command, line ->
+                    runOnUiThread(() -> appendLog(line))
+                );
+                runOnUiThread(() -> appendLog("[EXIT] " + code));
+            } catch (Exception e) {
+                runOnUiThread(() -> appendLog("[ERROR] " + e.getMessage()));
+            }
+        }).start();
     }
 
     private void appendLog(String text) {

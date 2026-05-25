@@ -15,7 +15,7 @@ public class AboutActivity extends AppCompatActivity {
         TextView textInfo = findViewById(R.id.text_info);
         TextView textDisclaimer = findViewById(R.id.text_disclaimer);
         
-        textVersion.setText("Version: " + NativeBridge.nativeGetVersion());
+        textVersion.setText("Version: " + NativeBridge.getVersion());
         textInfo.setText(
             "AppDebugToolkit v2.0\n" +
             "Android 15 ARM64 Dynamic Instrumentation Framework\n\n" +
