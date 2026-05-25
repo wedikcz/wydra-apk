@@ -49,7 +49,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppDebugToolkit"
         android:debuggable="true"
-        android:extractNativeLibs="true"
         android:largeHeap="true"
         android:hardwareAccelerated="true"
         android:usesCleartextTraffic="true"
