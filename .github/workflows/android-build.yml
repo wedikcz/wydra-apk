@@ -1,5 +1,5 @@
-- name: Android Github Action
-  uses: vukan-markovic/Github-Android-Action@1.2
+name: Android Build
+
 on:
   push:
     branches: ["main"]
@@ -30,6 +30,8 @@ jobs:
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace
 
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
         with:
           name: app-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
