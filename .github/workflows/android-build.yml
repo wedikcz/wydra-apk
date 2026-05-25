@@ -1,5 +1,5 @@
-name: Android Build
-
+- name: Android Github Action
+  uses: vukan-markovic/Github-Android-Action@1.2
 on:
   push:
     branches: ["main"]
@@ -22,7 +22,7 @@ jobs:
           java-version: 17
 
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
 
       - name: Accept licenses
         run: yes | sdkmanager --licenses
@@ -30,8 +30,6 @@ jobs:
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace
 
-      - name: Upload debug APK
-        uses: actions/upload-artifact@v4
         with:
           name: app-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
