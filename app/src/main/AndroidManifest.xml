@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.apptoolkit">
+    package="com.wydra.apk">
 
     <!-- Síť -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -26,6 +26,7 @@
 
     <!-- Foreground service -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <!-- System-level (funguje hlavně na root / system app) -->
@@ -91,7 +92,7 @@
             android:name=".TerminalActivity"
             android:exported="false" />
 
-        <!-- Foreground service – „engine“ pro monitoring / hooking orchestration -->
+        <!-- Foreground service – „engine" pro monitoring / hooking orchestration -->
         <service
             android:name=".DebugService"
             android:exported="false"
