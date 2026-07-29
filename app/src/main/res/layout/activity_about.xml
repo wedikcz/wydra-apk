@@ -3,45 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#1a1a2e"
-    android:padding="24dp"
-    android:gravity="center">
+    android:padding="16dp"
+    android:theme="@style/Theme.AppDebugToolkit">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AppDebugToolkit"
-        android:textColor="#e94560"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp" />
-
-    <TextView
-        android:id="@+id/text_version"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#00ff88"
-        android:textSize="14sp"
-        android:layout_marginBottom="24dp" />
-
-    <TextView
-        android:id="@+id/text_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#cccccc"
-        android:textSize="13sp"
-        android:lineSpacingExtra="4dp"
-        android:gravity="center"
-        android:layout_marginBottom="24dp" />
-
-    <TextView
-        android:id="@+id/text_disclaimer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ff6666"
-        android:textSize="12sp"
-        android:gravity="center"
-        android:background="#2a0000"
-        android:padding="16dp" />
+        android:text="About"
+        android:textSize="20sp"
+        android:textColor="@color/primary_red" />
 
 </LinearLayout>

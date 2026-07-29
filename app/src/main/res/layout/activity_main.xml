@@ -3,80 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:background="#1a1a2e">
+    android:padding="16dp"
+    android:theme="@style/Theme.AppDebugToolkit">
+
+    <TextView
+        android:id="@android:id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wydra APK Toolkit"
+        android:textSize="24sp"
+        android:textColor="@color/primary_red"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AppDebugToolkit v2.0"
-        android:textColor="#e94560"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="4dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Android 15 ARM64 - Instrumentation Framework"
-        android:textColor="#0f3460"
-        android:textSize="12sp"
-        android:layout_marginBottom="8dp"/>
-
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#16213e"
-        android:padding="4dp">
-
-        <TextView
-            android:id="@+id/textViewLog"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#00ff88"
-            android:textSize="11sp"
-            android:fontFamily="monospace"
-            android:lineSpacingExtra="2dp"/>
-    </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="4dp">
-
-        <EditText
-            android:id="@+id/editTextCmd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Enter command..."
-            android:textColor="#ffffff"
-            android:textColorHint="#666666"
-            android:background="#0f3460"
-            android:padding="8dp"
-            android:fontFamily="monospace"
-            android:inputType="text"/>
-
-        <Button
-            android:id="@+id/buttonSend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SEND"
-            android:backgroundTint="#e94560"
-            android:textColor="#ffffff"
-            android:layout_marginLeft="4dp"/>
-
-        <Button
-            android:id="@+id/buttonClear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CLEAR"
-            android:backgroundTint="#333333"
-            android:textColor="#ffffff"
-            android:layout_marginLeft="4dp"/>
-    </LinearLayout>
+        android:text="Android 15 ARM64 Debug Framework"
+        android:textSize="14sp"
+        android:textColor="@color/text_green"
+        android:layout_marginTop="8dp" />
 
 </LinearLayout>

@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <!-- Allow all cleartext for debugging -->
-    <base-config cleartextTrafficPermitted="true">
-        <trust-anchors>
-            <certificates src="system" />
-            <certificates src="user" />
-        </trust-anchors>
-    </base-config>
-    
-    <!-- Domain-specific config for Play Integrity bypass -->
+    <!-- Debug configuration pro development -->
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">google.com</domain>
-        <domain includeSubdomains="true">android.com</domain>
-        <domain includeSubdomains="true">play.google.com</domain>
-        <trust-anchors>
-            <certificates src="system" />
-            <certificates src="user" />
-        </trust-anchors>
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">127.0.0.1</domain>
+        <domain includeSubdomains="true">10.0.0.0</domain>
+        <domain includeSubdomains="true">192.168.0.0</domain>
     </domain-config>
+
+    <!-- Certificate pinning bypass pro testing -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">*.local</domain>
+    </domain-config>
+
+    <!-- Trust custom CAs pro man-in-the-middle analysis -->
+    <trust-anchors>
+        <!-- System certificates -->
+        <certificates src="system" />
+        <!-- User-installed certificates (DEBUG MODE) -->
+        <certificates src="user" />
+    </trust-anchors>
 </network-security-config>
